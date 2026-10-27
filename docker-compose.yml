@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: bookleaf-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: bookleaf_user
+      POSTGRES_PASSWORD: bookleaf_secure_password_2025
+      POSTGRES_DB: bookleaf_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U bookleaf_user -d bookleaf_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: bookleaf-backend
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DATABASE_URL=postgresql://bookleaf_user:bookleaf_secure_password_2025@db:5432/bookleaf_db
+      - SECRET_KEY=bookleaf_production_jwt_secret_key_change_in_real_env_xyz
+      - AI_PROVIDER=auto
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GEMINI_MODEL=gemini-2.5-flash
+      - OPENAI_MODEL=gpt-4o-mini
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: bookleaf-frontend
+    restart: always
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+volumes:
+  postgres_data:
