@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import {
   Calendar,
   Clock,
+  FileQuestion,
   Filter,
   HelpCircle,
   MessageSquare,
@@ -42,9 +43,20 @@ export const MyTicketsPage: React.FC = () => {
       {/* Page Title & Action */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900">Support & Query History</h1>
+          <div className="flex items-center space-x-2 mb-1">
+            <span className="text-[11px] font-mono uppercase tracking-wider text-leaf-800 font-semibold">
+              Author Support
+            </span>
+            <span className="text-slate-300">&bull;</span>
+            <span className="text-xs text-slate-500">
+              {tickets ? `${tickets.length} Total Queries` : 'Loading...'}
+            </span>
+          </div>
+          <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 tracking-tight">
+            Support History & Active Inquiries
+          </h1>
           <p className="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
-            Track communication, escalation progress, and resolutions with the BookLeaf operations desk.
+            Track real-time responses, investigations, and resolutions directly from the BookLeaf operations team.
           </p>
         </div>
 
@@ -58,28 +70,30 @@ export const MyTicketsPage: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs flex flex-col sm:flex-row gap-3 items-center justify-between">
+      <div className="bg-white p-3.5 sm:p-4 rounded-2xl border border-stone-200/80 shadow-xs flex flex-col sm:flex-row gap-3 items-center justify-between">
         <div className="relative w-full sm:w-80">
-          <Search className="w-4 h-4 absolute left-3 top-3 text-slate-400" />
+          <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-400" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search by ticket # or subject..."
-            className="w-full pl-9 pr-3 py-2 text-xs sm:text-sm rounded-lg border border-slate-200 focus:outline-none focus:ring-2 focus:ring-leaf-500 bg-slate-50/50"
+            placeholder="Search by ticket #, title, or keyword..."
+            className="w-full pl-10 pr-3.5 py-2 text-xs sm:text-sm rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-leaf-600/20 focus:border-leaf-700 bg-stone-50/50 text-slate-900 placeholder-slate-400"
           />
         </div>
 
         <div className="flex items-center space-x-1.5 w-full sm:w-auto overflow-x-auto pb-1 sm:pb-0">
-          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider shrink-0 mr-1">Status:</span>
+          <span className="text-xs font-semibold text-slate-400 uppercase tracking-wider shrink-0 mr-1.5">
+            Status:
+          </span>
           {['all', 'Open', 'In Progress', 'Resolved', 'Closed'].map((s) => (
             <button
               key={s}
               onClick={() => setStatusFilter(s)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-colors ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-medium whitespace-nowrap transition-all duration-150 ${
                 statusFilter === s
-                  ? 'bg-leaf-900 text-white shadow-xs'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                  ? 'bg-leaf-900 text-white font-semibold shadow-xs'
+                  : 'bg-stone-100 text-slate-600 hover:bg-stone-200/80'
               }`}
             >
               {s === 'all' ? 'All' : s}
@@ -88,74 +102,81 @@ export const MyTicketsPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Tickets List */}
-      <div className="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
-        {isLoading ? (
-          <div className="p-8 space-y-4 animate-pulse">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="h-16 bg-slate-100 rounded-xl" />
-            ))}
-          </div>
-        ) : !filteredTickets || filteredTickets.length === 0 ? (
-          <div className="p-12 text-center">
-            <MessageSquare className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-            <h3 className="text-base font-serif font-bold text-slate-800">No support tickets match</h3>
-            <p className="text-xs text-slate-500 mt-1">Submit a query whenever you need assistance from the team.</p>
-          </div>
-        ) : (
-          <div className="divide-y divide-slate-100">
-            {filteredTickets.map((ticket) => (
-              <div
-                key={ticket.id}
-                onClick={() => navigate(`/author/tickets/${ticket.id}`)}
-                className="p-5 hover:bg-slate-50/80 transition-colors cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4"
-              >
-                <div className="space-y-1.5 flex-1 min-w-0 pr-4">
-                  <div className="flex items-center space-x-2 flex-wrap gap-y-1">
-                    <span className="text-xs font-mono font-semibold text-slate-700 bg-slate-100 px-2 py-0.5 rounded">
-                      {ticket.ticket_number}
-                    </span>
-                    <Badge variant="category" value={ticket.category} size="sm">
-                      {ticket.category}
-                    </Badge>
-                    <Badge variant="priority" value={ticket.priority} size="sm">
-                      {ticket.priority}
-                    </Badge>
-                  </div>
-
-                  <h3 className="text-sm sm:text-base font-medium text-slate-900 leading-snug truncate">
-                    {ticket.subject}
-                  </h3>
-
-                  <p className="text-xs text-slate-500 flex items-center space-x-2">
-                    <span className="text-slate-700 font-medium">{ticket.book_title || 'General / Account Level'}</span>
-                    <span>&bull;</span>
-                    <span>Created {new Date(ticket.created_at).toLocaleDateString()}</span>
-                  </p>
-
-                  {/* Latest message snippet */}
-                  {ticket.latest_message && (
-                    <div className="mt-1 text-xs text-slate-600 bg-slate-50 p-2 rounded-lg border border-slate-100 line-clamp-1">
-                      <strong className="text-slate-800 capitalize">{ticket.latest_message.sender_role}:</strong>{' '}
-                      {ticket.latest_message.message}
-                    </div>
-                  )}
+      {/* Ticket List View */}
+      {isLoading ? (
+        <div className="space-y-3 animate-pulse">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="h-28 bg-white rounded-2xl border border-stone-200/80" />
+          ))}
+        </div>
+      ) : !filteredTickets || filteredTickets.length === 0 ? (
+        <div className="bg-white rounded-3xl p-12 text-center border border-stone-200/80 shadow-xs">
+          <FileQuestion className="w-12 h-12 text-slate-300 mx-auto mb-3" />
+          <h3 className="text-base font-serif font-bold text-slate-800">No support tickets found</h3>
+          <p className="text-xs text-slate-500 mt-1 max-w-sm mx-auto">
+            {search.trim()
+              ? 'No tickets match your search criteria. Try a different query.'
+              : 'You have not submitted any support inquiries yet.'}
+          </p>
+          <button
+            onClick={() => navigate('/author/submit-query')}
+            className="mt-4 inline-flex items-center space-x-2 px-4 py-2 bg-leaf-900 text-white rounded-xl text-xs font-semibold hover:bg-leaf-800 transition-colors shadow-xs"
+          >
+            <HelpCircle className="w-3.5 h-3.5 text-amber-gold" />
+            <span>Raise a Query</span>
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-3.5">
+          {filteredTickets.map((t) => (
+            <div
+              key={t.id}
+              onClick={() => navigate(`/author/tickets/${t.id}`)}
+              className="bg-white p-5 rounded-2xl border border-stone-200/80 shadow-xs hover:shadow-card hover:border-leaf-300 transition-all duration-200 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 group"
+            >
+              <div className="space-y-1.5 flex-1 min-w-0">
+                <div className="flex items-center space-x-2 flex-wrap gap-y-1">
+                  <span className="text-xs font-mono font-semibold text-slate-500 bg-stone-100 px-2 py-0.5 rounded-md border border-stone-200/60">
+                    {t.ticket_number}
+                  </span>
+                  <Badge variant="category" value={t.category} size="sm">
+                    {t.category}
+                  </Badge>
+                  <Badge variant="priority" value={t.priority} size="sm">
+                    {t.priority}
+                  </Badge>
                 </div>
 
-                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center shrink-0 space-y-1">
-                  <Badge variant="status" value={ticket.status}>
-                    {ticket.status}
-                  </Badge>
-                  <span className="text-[11px] text-slate-400 font-mono">
-                    {new Date(ticket.updated_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                <h3 className="text-base font-serif font-bold text-slate-900 group-hover:text-leaf-950 transition-colors line-clamp-1">
+                  {t.subject}
+                </h3>
+
+                <p className="text-xs text-slate-500 line-clamp-2 font-sans">
+                  {t.description}
+                </p>
+
+                <div className="flex items-center space-x-4 text-[11px] text-slate-400 pt-1">
+                  <span>Related: <strong className="text-slate-600 font-medium">{t.book_title || 'General / Account'}</strong></span>
+                  <span>&bull;</span>
+                  <span className="flex items-center gap-1">
+                    <Clock className="w-3 h-3 text-slate-400" />
+                    Updated {new Date(t.updated_at).toLocaleDateString()}
                   </span>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
-      </div>
+
+              <div className="flex sm:flex-col items-center sm:items-end justify-between shrink-0 gap-2">
+                <Badge variant="status" value={t.status}>
+                  {t.status}
+                </Badge>
+                <span className="text-xs font-medium text-leaf-800 group-hover:translate-x-0.5 transition-transform">
+                  View Thread &rarr;
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
-

@@ -20,31 +20,63 @@ export const StatCard: React.FC<StatCardProps> = ({
   onClick,
   accentColor = 'slate',
 }) => {
-  const accentBorder = {
-    emerald: 'border-l-4 border-l-emerald-600',
-    amber: 'border-l-4 border-l-amber-600',
-    rose: 'border-l-4 border-l-rose-600',
-    indigo: 'border-l-4 border-l-indigo-600',
-    slate: 'border-l-4 border-l-slate-400',
+  const iconTheme = {
+    emerald: 'bg-emerald-50 text-emerald-700 border-emerald-100',
+    amber: 'bg-amber-50 text-amber-700 border-amber-100',
+    rose: 'bg-rose-50 text-rose-700 border-rose-100',
+    indigo: 'bg-indigo-50 text-indigo-700 border-indigo-100',
+    slate: 'bg-slate-100 text-slate-700 border-slate-200',
+  }[accentColor];
+
+  const topBarColor = {
+    emerald: 'bg-emerald-600',
+    amber: 'bg-amber-500',
+    rose: 'bg-rose-500',
+    indigo: 'bg-indigo-600',
+    slate: 'bg-slate-400',
   }[accentColor];
 
   return (
     <div
       onClick={onClick}
-      className={`bg-white rounded-xl p-5 border border-slate-200/80 shadow-sm transition-all hover:shadow-md ${accentBorder} ${
-        onClick ? 'cursor-pointer' : ''
+      className={`group relative bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:shadow-card transition-all duration-200 overflow-hidden ${
+        onClick ? 'cursor-pointer hover:border-slate-300' : ''
       }`}
     >
-      <div className="flex items-center justify-between">
-        <p className="text-xs uppercase tracking-wider font-semibold text-slate-500">{label}</p>
-        {icon && <div className="text-slate-400">{icon}</div>}
+      {/* Subtle top indicator line on hover */}
+      <div
+        className={`absolute top-0 left-0 right-0 h-1 ${topBarColor} opacity-0 group-hover:opacity-100 transition-opacity duration-200`}
+      />
+
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-[11px] uppercase tracking-wider font-semibold text-slate-500 font-sans">
+            {label}
+          </p>
+          <div className="mt-2.5 flex items-baseline gap-2">
+            <h3 className="text-2xl sm:text-[26px] font-serif font-bold text-slate-900 tracking-tight tabular-nums">
+              {value}
+            </h3>
+          </div>
+        </div>
+
+        {icon && (
+          <div
+            className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 ${iconTheme}`}
+          >
+            {icon}
+          </div>
+        )}
       </div>
-      <div className="mt-3 flex items-baseline justify-between">
-        <h3 className="text-2xl font-serif font-bold text-slate-900 tracking-tight">{value}</h3>
-        {badge}
+
+      <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+        {subtitle && (
+          <p className="text-slate-500 font-sans truncate text-xs">
+            {subtitle}
+          </p>
+        )}
+        {badge && <div className="shrink-0 ml-2">{badge}</div>}
       </div>
-      {subtitle && <p className="mt-1 text-xs text-slate-500 font-sans">{subtitle}</p>}
     </div>
   );
 };
-

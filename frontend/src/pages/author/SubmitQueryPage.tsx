@@ -4,12 +4,20 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   AlertCircle,
   BookOpen,
+  Calendar,
   CheckCircle2,
+  Clock,
+  Coins,
+  FileCheck,
   FileText,
   HelpCircle,
   Paperclip,
+  Printer,
+  Radio,
   Send,
+  Shield,
   Sparkles,
+  Store,
   Upload,
   X,
 } from 'lucide-react';
@@ -44,23 +52,31 @@ export const SubmitQueryPage: React.FC = () => {
   const templates = [
     {
       label: 'Royalty Inquiry',
+      icon: Coins,
       subject: 'Royalty payout inquiry for my title',
       desc: 'I noticed pending royalties in my author dashboard from the previous quarter. Could you please confirm if this payment has been initiated to my linked bank account?',
+      badge: 'Finance',
     },
     {
       label: 'ISBN Discrepancy',
+      icon: BookOpen,
       subject: 'Incorrect or mismatching ISBN listed on marketplace',
       desc: 'Readers are reporting that the ISBN shown on Amazon India does not match the physical ISBN barcode on the back of my printed copies. Please escalate to the production team.',
+      badge: 'Catalog',
     },
     {
       label: 'Print Quality Issue',
+      icon: Printer,
       subject: 'Defective print copies received with misalignment',
       desc: 'I received my author copies today and noticed severe misalignments in the page trimming and blurry cover text. I am attaching photographs for your verification to arrange a reprint.',
+      badge: 'Manufacturing',
     },
     {
       label: 'Stock Availability',
+      icon: Store,
       subject: 'Book showing as Currently Unavailable on Amazon',
       desc: 'My published title is displaying "Currently Unavailable" on Amazon India even though the listing was live. Could we trigger an electronic stock re-sync with the distribution team?',
+      badge: 'Distribution',
     },
   ];
 
@@ -121,43 +137,68 @@ export const SubmitQueryPage: React.FC = () => {
       {/* Title */}
       <div>
         <div className="flex items-center space-x-2 text-xs font-semibold text-leaf-800 uppercase tracking-wider">
-          <HelpCircle className="w-4 h-4" />
-          <span>BookLeaf Author Support</span>
+          <HelpCircle className="w-4 h-4 text-amber-gold" />
+          <span>Direct Author Support Desk</span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">
           Submit an Author Support Query
         </h1>
         <p className="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
-          Our automated dispatch system immediately classifies and routes your query to the appropriate Delhi operations team.
+          Our automated dispatch system immediately classifies your query and links your sales & production context for the support desk.
         </p>
       </div>
 
       {/* Query Topic Templates */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200/80 shadow-xs space-y-2">
-        <div className="flex items-center space-x-1.5 text-xs font-semibold text-slate-700">
-          <Sparkles className="w-3.5 h-3.5 text-amber-gold" />
-          <span>Quick Topic Templates:</span>
+      <div className="bg-white p-5 rounded-3xl border border-stone-200/80 shadow-xs space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-1.5 text-xs font-semibold text-slate-800">
+            <Sparkles className="w-3.5 h-3.5 text-amber-gold" />
+            <span>Select a Common Topic Template (1-Click Autofill):</span>
+          </div>
+          <span className="text-[11px] text-slate-400">Optional</span>
         </div>
-        <div className="flex flex-wrap gap-2">
-          {templates.map((t) => (
-            <button
-              key={t.label}
-              type="button"
-              onClick={() => applyTemplate(t)}
-              className="text-xs px-2.5 py-1.5 rounded-lg bg-slate-50 hover:bg-leaf-50 text-slate-700 hover:text-leaf-900 border border-slate-200 transition-colors"
-            >
-              {t.label}
-            </button>
-          ))}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          {templates.map((t) => {
+            const Icon = t.icon;
+            return (
+              <button
+                key={t.label}
+                type="button"
+                onClick={() => applyTemplate(t)}
+                className="p-3 rounded-2xl bg-stone-50 hover:bg-leaf-50/70 border border-stone-200/80 hover:border-leaf-300 text-left transition-all duration-150 flex items-start space-x-2.5 group"
+              >
+                <div className="w-7 h-7 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0 mt-0.5 text-leaf-800 group-hover:border-leaf-300 shadow-2xs">
+                  <Icon className="w-3.5 h-3.5" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-900 group-hover:text-leaf-950">
+                      {t.label}
+                    </span>
+                    <span className="text-[9px] px-1.5 py-0.2 rounded font-mono bg-white text-slate-500 border border-stone-200">
+                      {t.badge}
+                    </span>
+                  </div>
+                  <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
+                    {t.subject}
+                  </p>
+                </div>
+              </button>
+            );
+          })}
         </div>
       </div>
 
       {/* Main Form */}
-      <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-xs space-y-5">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-xs space-y-5"
+      >
         {error && (
-          <div className="p-3 bg-rose-50 border border-rose-200 rounded-xl text-rose-800 text-xs flex items-center space-x-2">
-            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0" />
-            <span>{error}</span>
+          <div className="p-3.5 bg-rose-50 border border-rose-200/80 rounded-2xl text-rose-800 text-xs flex items-start space-x-2.5 animate-in fade-in duration-150">
+            <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
+            <span className="font-medium">{error}</span>
           </div>
         )}
 
@@ -170,7 +211,7 @@ export const SubmitQueryPage: React.FC = () => {
             value={bookId}
             onChange={(e) => setBookId(e.target.value)}
             disabled={booksLoading}
-            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-leaf-500 focus:border-leaf-500 bg-white text-slate-900"
+            className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-stone-200 focus:ring-2 focus:ring-leaf-600/20 focus:border-leaf-700 bg-white text-slate-900 transition-colors"
           >
             <option value="general">General / Account Level (Not Book Specific)</option>
             {books?.map((b) => (
@@ -180,7 +221,7 @@ export const SubmitQueryPage: React.FC = () => {
             ))}
           </select>
           <p className="mt-1 text-[11px] text-slate-400">
-            Selecting your specific title allows our AI and support team to pull live distribution & royalty context automatically.
+            Selecting your specific title allows our support desk and AI to pull live sales and distribution records immediately.
           </p>
         </div>
 
@@ -195,22 +236,27 @@ export const SubmitQueryPage: React.FC = () => {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             placeholder="e.g. Incomplete royalty calculation or missing author copies"
-            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-leaf-500 focus:border-leaf-500 bg-white placeholder-slate-400 text-slate-900"
+            className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-stone-200 focus:ring-2 focus:ring-leaf-600/20 focus:border-leaf-700 bg-white placeholder-slate-400 text-slate-900 transition-colors"
           />
         </div>
 
         {/* Description */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
-            Detailed Query Description
-          </label>
+          <div className="flex items-center justify-between mb-1.5">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+              Detailed Query Description
+            </label>
+            <span className="text-[11px] text-slate-400 tabular-nums">
+              {description.length} characters
+            </span>
+          </div>
           <textarea
             required
             rows={5}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Please detail your question, including relevant dates, platforms (Amazon, Flipkart, etc.), or specific concerns so we can investigate accurately..."
-            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-slate-300 focus:ring-2 focus:ring-leaf-500 focus:border-leaf-500 bg-white placeholder-slate-400 text-slate-900 font-sans"
+            className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-stone-200 focus:ring-2 focus:ring-leaf-600/20 focus:border-leaf-700 bg-white placeholder-slate-400 text-slate-900 font-sans transition-colors"
           />
         </div>
 
@@ -219,18 +265,24 @@ export const SubmitQueryPage: React.FC = () => {
           <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
             Optional File Attachment
           </label>
-          <div className="border-2 border-dashed border-slate-200 rounded-xl p-4 text-center hover:border-slate-300 transition-colors">
+          <div className="border-2 border-dashed border-stone-200 hover:border-leaf-400 rounded-2xl p-4 sm:p-5 text-center transition-colors bg-stone-50/30">
             {attachment ? (
-              <div className="flex items-center justify-between bg-slate-50 p-2.5 rounded-lg border border-slate-200">
-                <div className="flex items-center space-x-2 text-xs text-slate-700 truncate">
-                  <FileText className="w-4 h-4 text-leaf-700 shrink-0" />
-                  <span className="truncate">{attachment.name}</span>
-                  <span className="text-[10px] text-slate-400">({Math.round(attachment.size / 1024)} KB)</span>
+              <div className="flex items-center justify-between bg-white p-3 rounded-xl border border-stone-200 shadow-2xs">
+                <div className="flex items-center space-x-2.5 text-xs text-slate-700 truncate">
+                  <div className="w-8 h-8 rounded-lg bg-leaf-50 text-leaf-800 flex items-center justify-center shrink-0">
+                    <FileText className="w-4 h-4" />
+                  </div>
+                  <div className="text-left truncate">
+                    <p className="font-semibold text-slate-900 truncate">{attachment.name}</p>
+                    <p className="text-[10px] text-slate-400 font-mono">
+                      {Math.round(attachment.size / 1024)} KB &bull; Attached
+                    </p>
+                  </div>
                 </div>
                 <button
                   type="button"
                   onClick={() => setAttachment(null)}
-                  className="text-slate-400 hover:text-rose-600 p-1 rounded"
+                  className="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -238,8 +290,8 @@ export const SubmitQueryPage: React.FC = () => {
             ) : (
               <div>
                 <Upload className="w-6 h-6 text-slate-400 mx-auto mb-1.5" />
-                <label className="cursor-pointer text-xs font-semibold text-leaf-800 hover:text-leaf-900">
-                  <span>Upload a file</span>
+                <label className="cursor-pointer text-xs font-semibold text-leaf-800 hover:text-leaf-950 transition-colors">
+                  <span>Click to browse files</span>
                   <input
                     type="file"
                     className="sr-only"
@@ -252,32 +304,34 @@ export const SubmitQueryPage: React.FC = () => {
                   />
                 </label>
                 <p className="text-[11px] text-slate-400 mt-1">
-                  JPG, PNG, PDF up to 5MB (Useful for defective copy photos or statements)
+                  JPG, PNG, PDF up to 5MB (Useful for book defect photos, bank statements, or barcode scans)
                 </p>
               </div>
             )}
           </div>
         </div>
 
-        {/* Submit Button */}
-        <div className="pt-2 flex items-center justify-between">
-          <p className="text-[11px] text-slate-400">
-            Powered by BookLeaf Knowledge Base &bull; Delhi Press Operations
-          </p>
+        {/* Submit Button & SLA note */}
+        <div className="pt-3 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center space-x-2 text-[11px] text-slate-400">
+            <Clock className="w-3.5 h-3.5 text-leaf-700" />
+            <span>Guaranteed First Response SLA: &lt; 24h</span>
+          </div>
+
           <button
             type="submit"
             disabled={submitMutation.isPending || uploadProgress}
-            className="flex items-center space-x-2 px-6 py-2.5 rounded-xl bg-leaf-900 hover:bg-leaf-800 text-white font-semibold text-sm shadow-sm transition-colors disabled:opacity-50"
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-leaf-900 hover:bg-leaf-800 text-white font-semibold text-sm shadow-xs transition-all duration-150 disabled:opacity-50"
           >
-            {submitMutation.isPending ? (
+            {submitMutation.isPending || uploadProgress ? (
               <>
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                <span>Processing Ticket...</span>
+                <span>Submitting to Queue...</span>
               </>
             ) : (
               <>
                 <Send className="w-4 h-4 text-amber-gold" />
-                <span>Submit Ticket</span>
+                <span>Submit Support Query</span>
               </>
             )}
           </button>
@@ -286,4 +340,3 @@ export const SubmitQueryPage: React.FC = () => {
     </div>
   );
 };
-
