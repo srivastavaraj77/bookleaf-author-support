@@ -167,3 +167,4 @@ export interface AdminDashboardStats {
   oldest_unresolved: OldestUnresolvedTicket[];
   recent_tickets: Ticket[];
 }
+

@@ -157,3 +157,4 @@ class AIDraft(Base):
     created_at = Column(DateTime(timezone=True), default=utc_now, nullable=False)
 
     ticket = relationship("Ticket", back_populates="ai_drafts")
+

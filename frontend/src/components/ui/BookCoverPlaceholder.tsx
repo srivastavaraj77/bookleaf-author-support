@@ -58,3 +58,4 @@ export const BookCoverPlaceholder: React.FC<BookCoverProps> = ({
     </div>
   );
 };
+

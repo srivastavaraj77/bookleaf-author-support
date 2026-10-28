@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useAuth } from '../context/AuthContext';
+import { API_BASE } from '../services/api';
 
 export function useRealtime(onTicketUpdate?: (data: any) => void) {
   const { token, isAuthenticated } = useAuth();
@@ -11,7 +12,7 @@ export function useRealtime(onTicketUpdate?: (data: any) => void) {
     if (!isAuthenticated || !token) return;
 
     // Connect to SSE stream
-    const sseUrl = `/api/v1/events/stream?token=${encodeURIComponent(token)}`;
+    const sseUrl = `${API_BASE}/events/stream?token=${encodeURIComponent(token)}`;
     const es = new EventSource(sseUrl);
     eventSourceRef.current = es;
 
@@ -62,3 +63,4 @@ export function useRealtime(onTicketUpdate?: (data: any) => void) {
     };
   }, [isAuthenticated, token, queryClient, onTicketUpdate]);
 }
+

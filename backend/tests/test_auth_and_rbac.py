@@ -55,3 +55,4 @@ def test_cross_author_book_access_forbidden(client, author1_headers, author2_hea
     resp2 = client.get("/api/v1/books/BK003", headers=author1_headers)
     assert resp2.status_code == 403
     assert "authorization" in resp2.json()["detail"].lower()
+

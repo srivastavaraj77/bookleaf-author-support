@@ -78,3 +78,4 @@ def get_current_author(
             detail="Author profile not found for this account."
         )
     return author
+

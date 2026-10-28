@@ -13,10 +13,14 @@ node_modules/
 dist/
 
 # Local databases & uploads
+*.db
+*.db-journal
 bookleaf.db
 bookleaf.db-journal
 uploads/*
 !uploads/.gitkeep
+backend/uploads/*
+!backend/uploads/.gitkeep
 
 # Environment files
 .env
@@ -34,3 +38,4 @@ htmlcov/
 *.swp
 *.swo
 .DS_Store
+

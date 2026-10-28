@@ -72,3 +72,4 @@ def get_me(current_user: User = Depends(get_current_user), db: Session = Depends
         is_active=current_user.is_active,
         author_id=author_id
     )
+

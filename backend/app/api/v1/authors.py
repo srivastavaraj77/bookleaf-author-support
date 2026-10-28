@@ -46,3 +46,4 @@ def get_author_dashboard(
         open_tickets_count=open_tickets_count,
         recent_tickets_count=recent_tickets_count
     )
+

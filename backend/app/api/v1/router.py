@@ -16,3 +16,4 @@ api_router.include_router(tickets_router)
 api_router.include_router(admin_router)
 api_router.include_router(events_router)
 api_router.include_router(health_router)
+

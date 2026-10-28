@@ -48,3 +48,4 @@ class DraftGenerationResult(BaseModel):
     model_name: str
     provider: str
     estimated_tokens: int = 0
+

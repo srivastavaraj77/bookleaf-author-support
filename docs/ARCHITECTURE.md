@@ -87,3 +87,4 @@ Instead of requiring manual page refreshes, the application implements Server-Se
 - When an admin sends a response, changes ticket status, or updates assignment, the event is immediately pushed to the author's browser stream.
 - The React frontend receives the event and invalidates TanStack Query caches, seamlessly updating the chat timeline and badges without layout shifts.
 - Short polling fallback (`GET /api/v1/tickets/{id}/updates?since=...`) is also provided for environments where long-lived HTTP streaming is restricted.
+

@@ -311,3 +311,4 @@ async def upload_attachment(
         "file_url": f"/api/v1/uploads/{safe_filename}",
         "size_bytes": len(content)
     }
+

@@ -287,3 +287,4 @@ All endpoints are versioned under `/api/v1` with consistent REST conventions:
 | **Graceful Degradation** | ✅ Complete | Zero SPOF: Ticket creation succeeds even if AI service is offline. |
 | **Docker Compose & Deployment** | ✅ Complete | Configured for PostgreSQL and separate containerized hosting. |
 | **Documentation & Write-Up** | ✅ Complete | `README.md`, `ARCHITECTURE.md`, `AI_INTEGRATION_AND_EVALUATION.md`, `ONE_PAGE_WRITEUP.md`. |
+

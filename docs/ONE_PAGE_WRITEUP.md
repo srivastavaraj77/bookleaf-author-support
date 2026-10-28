@@ -37,3 +37,4 @@ If deploying this platform to handle BookLeaf's full catalog (22,000+ titles, 1,
 3. **Multi-Channel Author Integrations**: Extend the ingestion layer to accept queries from WhatsApp Business API and email (SendGrid/Mailgun webhook), routing them into the same unified admin queue.
 4. **Automated SLA Escalation Cron**: Add automatic priority escalation for tickets unaddressed after 24 hours, alerting operations leads via Slack/PagerDuty.
 5. **Author Self-Service Payout Tracking**: Integrate directly with payment gateways (RazorpayX / Cashfree) to provide live bank UTR numbers on author dashboards once payouts are executed.
+

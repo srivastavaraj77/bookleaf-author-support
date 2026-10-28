@@ -112,3 +112,4 @@ def get_relevant_policies(category: str, query_text: str) -> str:
         selected.extend([ROYALTY_POLICY, DISTRIBUTION_POLICY, PRODUCTION_STAGES_POLICY])
 
     return "\n\n".join(selected)
+

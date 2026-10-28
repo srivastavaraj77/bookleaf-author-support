@@ -423,3 +423,4 @@ def generate_or_regenerate_ai_draft(
 
     draft = AIService.generate_draft_response(db, ticket, regenerate=regenerate)
     return draft
+

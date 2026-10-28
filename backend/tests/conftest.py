@@ -158,3 +158,4 @@ def author1_headers():
 def author2_headers():
     token = create_access_token(subject=3, role="author", author_id="AUTH002", name="Rohit Kapoor")
     return {"Authorization": f"Bearer {token}"}
+

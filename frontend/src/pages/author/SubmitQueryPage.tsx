@@ -286,3 +286,4 @@ export const SubmitQueryPage: React.FC = () => {
     </div>
   );
 };
+

@@ -95,3 +95,4 @@ We implemented two key optimizations:
 1. **No Auto-Sending**: AI produces drafts only for admin review. The system never sends unreviewed messages to authors.
 2. **Auditable Overrides**: If an admin changes the category or priority, the original AI predictions (`ai_category`, `ai_priority`, `ai_confidence`, `ai_reasoning`) are preserved for auditing.
 3. **Draft Edit Tracking**: When an admin sends a response, the system records `was_edited: true/false` and saves the final sent message.
+
