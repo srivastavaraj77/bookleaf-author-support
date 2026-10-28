@@ -4,14 +4,14 @@
 
 @layer base {
   body {
-    @apply bg-[#fbfaf7] text-slate-800 antialiased font-sans selection:bg-leaf-200 selection:text-leaf-950;
+    @apply bg-[#fcfbf7] text-slate-800 antialiased font-sans selection:bg-teal-100 selection:text-ink-950;
   }
 }
 
-/* Custom subtle scrollbar */
+/* Restrained scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
@@ -24,7 +24,7 @@
   background: #94a3b8;
 }
 
-/* Tabular numbers for financial metrics and counts */
+/* Tabular figures for financial tables */
 .tabular-nums {
   font-variant-numeric: tabular-nums;
 }

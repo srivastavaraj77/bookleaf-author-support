@@ -32,8 +32,8 @@ const ProtectedRoute: React.FC<{ children: React.ReactNode; allowedRole?: 'admin
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#faf9f6]">
-        <div className="w-8 h-8 border-3 border-leaf-900 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#fcfbf7]">
+        <div className="w-8 h-8 border-3 border-ink-950 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -54,8 +54,8 @@ const RootRedirect: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#faf9f6]">
-        <div className="w-8 h-8 border-3 border-leaf-900 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#fcfbf7]">
+        <div className="w-8 h-8 border-3 border-ink-950 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

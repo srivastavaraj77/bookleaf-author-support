@@ -8,7 +8,7 @@ interface StatCardProps {
   trend?: string;
   badge?: React.ReactNode;
   onClick?: () => void;
-  accentColor?: 'emerald' | 'amber' | 'rose' | 'indigo' | 'slate';
+  accentColor?: 'teal' | 'brass' | 'rose' | 'ink' | 'slate' | 'emerald' | 'amber' | 'indigo';
 }
 
 export const StatCard: React.FC<StatCardProps> = ({
@@ -18,43 +18,33 @@ export const StatCard: React.FC<StatCardProps> = ({
   icon,
   badge,
   onClick,
-  accentColor = 'slate',
+  accentColor = 'teal',
 }) => {
-  const iconTheme = {
-    emerald: 'bg-emerald-50 text-emerald-700 border-emerald-100',
-    amber: 'bg-amber-50 text-amber-700 border-amber-100',
-    rose: 'bg-rose-50 text-rose-700 border-rose-100',
-    indigo: 'bg-indigo-50 text-indigo-700 border-indigo-100',
-    slate: 'bg-slate-100 text-slate-700 border-slate-200',
-  }[accentColor];
-
-  const topBarColor = {
-    emerald: 'bg-emerald-600',
-    amber: 'bg-amber-500',
-    rose: 'bg-rose-500',
-    indigo: 'bg-indigo-600',
-    slate: 'bg-slate-400',
+  const iconStyle = {
+    teal: 'bg-teal-50 text-teal-700 border-teal-200/70',
+    brass: 'bg-brass-50 text-brass-700 border-brass-200/80',
+    rose: 'bg-rose-50 text-rose-700 border-rose-200/80',
+    ink: 'bg-ink-50 text-ink-800 border-ink-200/80',
+    slate: 'bg-stone-100 text-stone-700 border-stone-200',
+    emerald: 'bg-teal-50 text-teal-800 border-teal-200/80',
+    amber: 'bg-brass-50 text-brass-700 border-brass-200/80',
+    indigo: 'bg-ink-50 text-ink-800 border-ink-200/80',
   }[accentColor];
 
   return (
     <div
       onClick={onClick}
-      className={`group relative bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs hover:shadow-card transition-all duration-200 overflow-hidden ${
-        onClick ? 'cursor-pointer hover:border-slate-300' : ''
+      className={`relative bg-white rounded-xl p-5 border border-stone-200/90 shadow-2xs hover:shadow-subtle transition-all duration-200 ${
+        onClick ? 'cursor-pointer hover:border-stone-300' : ''
       }`}
     >
-      {/* Subtle top indicator line on hover */}
-      <div
-        className={`absolute top-0 left-0 right-0 h-1 ${topBarColor} opacity-0 group-hover:opacity-100 transition-opacity duration-200`}
-      />
-
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-[11px] uppercase tracking-wider font-semibold text-slate-500 font-sans">
+          <p className="text-[11px] uppercase tracking-wider font-semibold text-stone-400 font-sans">
             {label}
           </p>
-          <div className="mt-2.5 flex items-baseline gap-2">
-            <h3 className="text-2xl sm:text-[26px] font-serif font-bold text-slate-900 tracking-tight tabular-nums">
+          <div className="mt-2 flex items-baseline gap-2">
+            <h3 className="text-2xl sm:text-[25px] font-serif font-bold text-ink-950 tracking-tight tabular-nums">
               {value}
             </h3>
           </div>
@@ -62,16 +52,16 @@ export const StatCard: React.FC<StatCardProps> = ({
 
         {icon && (
           <div
-            className={`w-10 h-10 rounded-xl border flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-105 ${iconTheme}`}
+            className={`w-9 h-9 rounded-lg border flex items-center justify-center shrink-0 ${iconStyle}`}
           >
             {icon}
           </div>
         )}
       </div>
 
-      <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
+      <div className="mt-3.5 pt-3 border-t border-stone-100 flex items-center justify-between text-xs">
         {subtitle && (
-          <p className="text-slate-500 font-sans truncate text-xs">
+          <p className="text-stone-500 font-sans truncate text-xs">
             {subtitle}
           </p>
         )}

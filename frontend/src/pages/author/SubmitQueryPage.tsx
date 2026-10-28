@@ -134,28 +134,28 @@ export const SubmitQueryPage: React.FC = () => {
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
-      {/* Title */}
-      <div>
-        <div className="flex items-center space-x-2 text-xs font-semibold text-leaf-800 uppercase tracking-wider">
-          <HelpCircle className="w-4 h-4 text-amber-gold" />
+      {/* Editorial Header */}
+      <div className="pb-2 border-b border-stone-200/80">
+        <div className="flex items-center space-x-2 text-xs font-mono font-semibold text-teal-800 uppercase tracking-widest">
+          <HelpCircle className="w-4 h-4 text-brass-500" />
           <span>Direct Author Support Desk</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-serif font-bold text-slate-900 mt-1">
+        <h1 className="text-2xl sm:text-3xl font-serif font-bold text-ink-950 mt-1 tracking-tight">
           Submit an Author Support Query
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 mt-1 font-sans">
+        <p className="text-xs sm:text-sm text-stone-600 mt-1 font-sans leading-relaxed">
           Our automated dispatch system immediately classifies your query and links your sales & production context for the support desk.
         </p>
       </div>
 
       {/* Query Topic Templates */}
-      <div className="bg-white p-5 rounded-3xl border border-stone-200/80 shadow-xs space-y-3">
+      <div className="bg-white p-5 rounded-xl border border-stone-200/90 shadow-2xs space-y-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-1.5 text-xs font-semibold text-slate-800">
-            <Sparkles className="w-3.5 h-3.5 text-amber-gold" />
+          <div className="flex items-center space-x-1.5 text-xs font-semibold text-ink-950 font-serif">
+            <Sparkles className="w-3.5 h-3.5 text-brass-500" />
             <span>Select a Common Topic Template (1-Click Autofill):</span>
           </div>
-          <span className="text-[11px] text-slate-400">Optional</span>
+          <span className="text-[11px] text-stone-400 font-mono">Optional</span>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
@@ -166,21 +166,21 @@ export const SubmitQueryPage: React.FC = () => {
                 key={t.label}
                 type="button"
                 onClick={() => applyTemplate(t)}
-                className="p-3 rounded-2xl bg-stone-50 hover:bg-leaf-50/70 border border-stone-200/80 hover:border-leaf-300 text-left transition-all duration-150 flex items-start space-x-2.5 group"
+                className="p-3 rounded-lg bg-stone-50/70 hover:bg-teal-50/50 border border-stone-200/80 hover:border-teal-400 text-left transition-all duration-150 flex items-start space-x-2.5 group"
               >
-                <div className="w-7 h-7 rounded-lg bg-white border border-stone-200 flex items-center justify-center shrink-0 mt-0.5 text-leaf-800 group-hover:border-leaf-300 shadow-2xs">
+                <div className="w-7 h-7 rounded-md bg-white border border-stone-200 flex items-center justify-center shrink-0 mt-0.5 text-teal-800 group-hover:border-teal-400 shadow-2xs">
                   <Icon className="w-3.5 h-3.5" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-semibold text-slate-900 group-hover:text-leaf-950">
+                    <span className="text-xs font-semibold text-ink-950 group-hover:text-teal-950">
                       {t.label}
                     </span>
-                    <span className="text-[9px] px-1.5 py-0.2 rounded font-mono bg-white text-slate-500 border border-stone-200">
+                    <span className="text-[9px] px-1.5 py-0.2 rounded font-mono bg-white text-stone-500 border border-stone-200">
                       {t.badge}
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
+                  <p className="text-[11px] text-stone-500 line-clamp-1 mt-0.5 font-sans">
                     {t.subject}
                   </p>
                 </div>
@@ -193,25 +193,25 @@ export const SubmitQueryPage: React.FC = () => {
       {/* Main Form */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white rounded-3xl p-6 sm:p-8 border border-stone-200/80 shadow-xs space-y-5"
+        className="bg-white rounded-xl p-6 sm:p-8 border border-stone-200/90 shadow-2xs space-y-5"
       >
         {error && (
-          <div className="p-3.5 bg-rose-50 border border-rose-200/80 rounded-2xl text-rose-800 text-xs flex items-start space-x-2.5 animate-in fade-in duration-150">
+          <div className="p-3.5 bg-rose-50 border border-rose-200 rounded-lg text-rose-800 text-xs flex items-start space-x-2.5 animate-in fade-in duration-150">
             <AlertCircle className="w-4 h-4 text-rose-600 shrink-0 mt-0.5" />
-            <span className="font-medium">{error}</span>
+            <span className="font-medium font-sans">{error}</span>
           </div>
         )}
 
         {/* Book Selector */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5 font-mono">
             Related Book
           </label>
           <select
             value={bookId}
             onChange={(e) => setBookId(e.target.value)}
             disabled={booksLoading}
-            className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-stone-200 focus:ring-2 focus:ring-leaf-600/20 focus:border-leaf-700 bg-white text-slate-900 transition-colors"
+            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-stone-200 focus:ring-2 focus:ring-teal-700/20 focus:border-teal-700 bg-white text-ink-950 transition-colors"
           >
             <option value="general">General / Account Level (Not Book Specific)</option>
             {books?.map((b) => (
@@ -220,14 +220,14 @@ export const SubmitQueryPage: React.FC = () => {
               </option>
             ))}
           </select>
-          <p className="mt-1 text-[11px] text-slate-400">
+          <p className="mt-1 text-[11px] text-stone-400 font-sans">
             Selecting your specific title allows our support desk and AI to pull live sales and distribution records immediately.
           </p>
         </div>
 
         {/* Subject */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5 font-mono">
             Subject Line
           </label>
           <input
@@ -236,17 +236,17 @@ export const SubmitQueryPage: React.FC = () => {
             value={subject}
             onChange={(e) => setSubject(e.target.value)}
             placeholder="e.g. Incomplete royalty calculation or missing author copies"
-            className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-stone-200 focus:ring-2 focus:ring-leaf-600/20 focus:border-leaf-700 bg-white placeholder-slate-400 text-slate-900 transition-colors"
+            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-stone-200 focus:ring-2 focus:ring-teal-700/20 focus:border-teal-700 bg-white placeholder-stone-400 text-ink-950 transition-colors"
           />
         </div>
 
         {/* Description */}
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+            <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 font-mono">
               Detailed Query Description
             </label>
-            <span className="text-[11px] text-slate-400 tabular-nums">
+            <span className="text-[11px] text-stone-400 tabular-nums font-mono">
               {description.length} characters
             </span>
           </div>
@@ -256,25 +256,25 @@ export const SubmitQueryPage: React.FC = () => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Please detail your question, including relevant dates, platforms (Amazon, Flipkart, etc.), or specific concerns so we can investigate accurately..."
-            className="w-full px-3.5 py-2.5 text-sm rounded-xl border border-stone-200 focus:ring-2 focus:ring-leaf-600/20 focus:border-leaf-700 bg-white placeholder-slate-400 text-slate-900 font-sans transition-colors"
+            className="w-full px-3.5 py-2.5 text-sm rounded-lg border border-stone-200 focus:ring-2 focus:ring-teal-700/20 focus:border-teal-700 bg-white placeholder-stone-400 text-ink-950 font-sans transition-colors leading-relaxed"
           />
         </div>
 
         {/* Optional Attachment */}
         <div>
-          <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700 mb-1.5">
+          <label className="block text-xs font-semibold uppercase tracking-wider text-stone-700 mb-1.5 font-mono">
             Optional File Attachment
           </label>
-          <div className="border-2 border-dashed border-stone-200 hover:border-leaf-400 rounded-2xl p-4 sm:p-5 text-center transition-colors bg-stone-50/30">
+          <div className="border-2 border-dashed border-stone-200 hover:border-teal-400 rounded-xl p-4 sm:p-5 text-center transition-colors bg-stone-50/30">
             {attachment ? (
-              <div className="flex items-center justify-between bg-white p-3 rounded-xl border border-stone-200 shadow-2xs">
-                <div className="flex items-center space-x-2.5 text-xs text-slate-700 truncate">
-                  <div className="w-8 h-8 rounded-lg bg-leaf-50 text-leaf-800 flex items-center justify-center shrink-0">
+              <div className="flex items-center justify-between bg-white p-3 rounded-lg border border-stone-200 shadow-2xs">
+                <div className="flex items-center space-x-2.5 text-xs text-stone-700 truncate">
+                  <div className="w-8 h-8 rounded-md bg-teal-50 text-teal-800 flex items-center justify-center shrink-0">
                     <FileText className="w-4 h-4" />
                   </div>
                   <div className="text-left truncate">
-                    <p className="font-semibold text-slate-900 truncate">{attachment.name}</p>
-                    <p className="text-[10px] text-slate-400 font-mono">
+                    <p className="font-semibold text-ink-950 truncate">{attachment.name}</p>
+                    <p className="text-[10px] text-stone-400 font-mono">
                       {Math.round(attachment.size / 1024)} KB &bull; Attached
                     </p>
                   </div>
@@ -282,15 +282,15 @@ export const SubmitQueryPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setAttachment(null)}
-                  className="text-slate-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors"
+                  className="text-stone-400 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-50 transition-colors"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
             ) : (
               <div>
-                <Upload className="w-6 h-6 text-slate-400 mx-auto mb-1.5" />
-                <label className="cursor-pointer text-xs font-semibold text-leaf-800 hover:text-leaf-950 transition-colors">
+                <Upload className="w-6 h-6 text-stone-400 mx-auto mb-1.5" />
+                <label className="cursor-pointer text-xs font-semibold text-teal-800 hover:text-teal-950 transition-colors">
                   <span>Click to browse files</span>
                   <input
                     type="file"
@@ -303,7 +303,7 @@ export const SubmitQueryPage: React.FC = () => {
                     }}
                   />
                 </label>
-                <p className="text-[11px] text-slate-400 mt-1">
+                <p className="text-[11px] text-stone-400 mt-1 font-sans">
                   JPG, PNG, PDF up to 5MB (Useful for book defect photos, bank statements, or barcode scans)
                 </p>
               </div>
@@ -313,24 +313,24 @@ export const SubmitQueryPage: React.FC = () => {
 
         {/* Submit Button & SLA note */}
         <div className="pt-3 border-t border-stone-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center space-x-2 text-[11px] text-slate-400">
-            <Clock className="w-3.5 h-3.5 text-leaf-700" />
+          <div className="flex items-center space-x-2 text-[11px] text-stone-500 font-mono">
+            <Clock className="w-3.5 h-3.5 text-teal-700" />
             <span>Guaranteed First Response SLA: &lt; 24h</span>
           </div>
 
           <button
             type="submit"
             disabled={submitMutation.isPending || uploadProgress}
-            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-leaf-900 hover:bg-leaf-800 text-white font-semibold text-sm shadow-xs transition-all duration-150 disabled:opacity-50"
+            className="w-full sm:w-auto flex items-center justify-center space-x-2 px-6 py-2.5 rounded-xl bg-ink-950 hover:bg-ink-900 text-white font-semibold text-sm shadow-2xs border border-ink-800 transition-all duration-150 disabled:opacity-50"
           >
             {submitMutation.isPending || uploadProgress ? (
               <>
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                <span>Submitting to Queue...</span>
+                <span>Submitting to Dispatch Queue...</span>
               </>
             ) : (
               <>
-                <Send className="w-4 h-4 text-amber-gold" />
+                <Send className="w-4 h-4 text-brass-400" />
                 <span>Submit Support Query</span>
               </>
             )}
